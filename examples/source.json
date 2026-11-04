@@ -1,0 +1,12 @@
+{
+  "source": "https://www.openslr.org/31/",
+  "license": "CC BY 4.0 (LibriSpeech)",
+  "files": [
+    "LibriSpeech/dev-clean-2/1272/135031/1272-135031-0000.flac",
+    "LibriSpeech/dev-clean-2/1272/135031/1272-135031-0001.flac",
+    "LibriSpeech/dev-clean-2/1462/170142/1462-170142-0000.flac"
+  ],
+  "samples": 64053,
+  "sample_rate": 16000,
+  "sir_db": 0
+}

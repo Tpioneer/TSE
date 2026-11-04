@@ -1,0 +1,15 @@
+{
+  "threads": 2,
+  "frames": 32,
+  "total_ms_per_frame": 211.2270499992519,
+  "stage_ms_per_frame": {
+    "analysis_bands": 5.7842781225190265,
+    "registration_fusion": 0.6980593734624563,
+    "time_norm_projection": 4.549325005427818,
+    "time_lstm": 21.9060843828629,
+    "frequency_norm_projection": 4.390343746308645,
+    "frequency_bilstm": 97.00570625136606,
+    "mask_heads": 64.96107499879145,
+    "fft_ola_dispatch_other": 11.932178118513548
+  }
+}

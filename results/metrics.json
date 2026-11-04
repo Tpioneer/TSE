@@ -1,0 +1,118 @@
+{
+  "torch": "2.5.1+cpu",
+  "python": "3.12.14",
+  "cpu": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+  "threads": 2,
+  "sample_rate": 16000,
+  "input_samples": 64053,
+  "output_samples": 64000,
+  "checkpoint_sha256": "42b73219eefefcbba4b5da0dcb89dce292359c9f93b1a951c7b6d196da2155b3",
+  "parameters": 25049608,
+  "registration_ms": 545.9326000127476,
+  "settings": {
+    "128": {
+      "length": 64000,
+      "max_abs": 3.5762786865234375e-07,
+      "rms": 2.2568395125468162e-08,
+      "snr_db": 133.5566091662752,
+      "rtf_trials": [
+        36.524331987573795,
+        25.799248422399668,
+        30.34374983217327
+      ],
+      "rtf_median": 30.34374983217327,
+      "push_p50_ms": 255.6697000109125,
+      "push_p95_ms": 368.38124999485444,
+      "first_input_audio_ms": 32.0,
+      "paced_first_ms": [
+        810.1669999887235,
+        375.10679999832064,
+        499.45909998496063
+      ],
+      "first_wall_median_ms": 499.45909998496063
+    },
+    "512": {
+      "length": 64000,
+      "max_abs": 4.470348358154297e-07,
+      "rms": 2.7788339501358923e-08,
+      "snr_db": 131.7493707786272,
+      "rtf_trials": [
+        11.604781490329174,
+        15.418320828070366,
+        16.20406758153252
+      ],
+      "rtf_median": 15.418320828070366,
+      "push_p50_ms": 471.56299999915063,
+      "push_p95_ms": 643.255560018588,
+      "first_input_audio_ms": 32.0,
+      "paced_first_ms": [
+        474.83540000393987,
+        487.368800007971,
+        463.37599999969825
+      ],
+      "first_wall_median_ms": 474.83540000393987
+    },
+    "1024": {
+      "length": 64000,
+      "max_abs": 3.8743019104003906e-07,
+      "rms": 2.52990324698887e-08,
+      "snr_db": 132.56454445354663,
+      "rtf_trials": [
+        9.22813142866459,
+        3.990004577462722,
+        9.59416585640051
+      ],
+      "rtf_median": 9.22813142866459,
+      "push_p50_ms": 524.4683499913663,
+      "push_p95_ms": 800.231375003932,
+      "first_input_audio_ms": 64.0,
+      "paced_first_ms": [
+        620.972900011111,
+        362.46249999385327,
+        604.7187999938615
+      ],
+      "first_wall_median_ms": 604.7187999938615
+    }
+  },
+  "mixture_si_sdr_db": 0.1394329457277751,
+  "output_si_sdr_db": 14.608716869872644,
+  "whole_rtf_including_enrollment": [
+    5.8970640938003624,
+    6.408738188688442,
+    5.523264971197288
+  ],
+  "suffix_probes": [
+    {
+      "cut": 5333,
+      "protected_prefix_samples": 4864,
+      "max_stream": 0.0,
+      "max_official": 0.0,
+      "first_change_at_1e_7": 4871,
+      "observed_future_samples": 462
+    },
+    {
+      "cut": 8000,
+      "protected_prefix_samples": 7552,
+      "max_stream": 0.0,
+      "max_official": 0.0,
+      "first_change_at_1e_7": 7562,
+      "observed_future_samples": 438
+    },
+    {
+      "cut": 10683,
+      "protected_prefix_samples": 10240,
+      "max_stream": 0.0,
+      "max_official": 0.0,
+      "first_change_at_1e_7": 10241,
+      "observed_future_samples": 442
+    },
+    {
+      "cut": 12127,
+      "protected_prefix_samples": 11648,
+      "max_stream": 0.0,
+      "max_official": 0.0,
+      "first_change_at_1e_7": 11653,
+      "observed_future_samples": 474
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "backend": "ort-int8",
+  "mask_period": 4,
+  "threads": 2,
+  "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+  "input_samples": 64053,
+  "first_input_samples": 512,
+  "backend_setup_ms": 2081.3785000063945,
+  "mixture_pcm_sha256": "1d03259ee911eeb89cc964a9c312e33a00430f9ed2f1255893042c30bdda08a2",
+  "length": 64000,
+  "max_abs": 0.5717976093292236,
+  "rms": 0.06557410384559023,
+  "snr_db": 4.291975420127827,
+  "target_si_sdr_db": 2.2720084646534207,
+  "official_si_sdr_db": 14.608716869872644,
+  "delta_si_sdr_db": -12.336708405219223,
+  "rtf_trials": [
+    1.644596868218296,
+    1.8803455138701815,
+    1.7259889653852658
+  ],
+  "rtf_median": 1.7259889653852658,
+  "paced_first_ms": [
+    82.7051000087522,
+    70.99569999263622,
+    89.96009998372756
+  ],
+  "first_wall_median_ms": 82.7051000087522,
+  "push_p50_ms": 1.435499987564981,
+  "push_p95_ms": 56.16629999713041,
+  "suffix_probes": [
+    {
+      "cut": 5333,
+      "protected": 4864,
+      "max_abs": 0.0,
+      "first_changed": 4874
+    },
+    {
+      "cut": 8000,
+      "protected": 7552,
+      "max_abs": 0.0,
+      "first_changed": 7559
+    },
+    {
+      "cut": 10683,
+      "protected": 10240,
+      "max_abs": 0.0,
+      "first_changed": 10242
+    },
+    {
+      "cut": 12127,
+      "protected": 11648,
+      "max_abs": 0.0,
+      "first_changed": 11655
+    }
+  ]
+}
