@@ -20,7 +20,18 @@ def extract(args):
     if sr != 16000 or ref.ndim != 1:
         raise ValueError("enrollment must be mono 16 kHz")
     model = load_model(args.checkpoint)
-    stream = Stream(model, enrollment(model, torch.from_numpy(ref)))
+    embedding = enrollment(model, torch.from_numpy(ref))
+    if args.mask_period != 1 and args.backend != "ort-int8":
+        raise ValueError("--mask-period is only supported by ort-int8")
+    if args.backend == "openvino":
+        from cpu_engine import CpuEngine
+        stream = CpuEngine(model, args.threads).stream(embedding)
+    elif args.backend == "ort-int8":
+        from ort_engine import OrtEngine, verify_graph
+        verify_graph(args.graph, args.checkpoint)
+        stream = OrtEngine(model, args.graph, args.threads, args.mask_period).stream(embedding)
+    else:
+        stream = Stream(model, embedding)
     with sf.SoundFile(args.mixture) as src:
         if src.samplerate != 16000 or src.channels != 1 or len(src) <= 256:
             raise ValueError("expected mono 16 kHz mixture longer than 256 samples")
@@ -37,4 +48,7 @@ if __name__ == '__main__':
     p.add_argument('--checkpoint',type=Path,default=ROOT/'assets/spk_emb_causal_100')
     p.add_argument('--chunk',type=int,default=128,help="input block size in samples")
     p.add_argument('--threads',type=int,default=2)
+    p.add_argument("--backend",choices=["torch","openvino","ort-int8"],default="torch")
+    p.add_argument("--graph",type=Path,default=ROOT/"assets/onnx/one_hop_int8.onnx")
+    p.add_argument("--mask-period",type=int,default=1,help="INT8 mask update interval in hops; >1 changes the model")
     extract(p.parse_args())

@@ -56,3 +56,19 @@ with torch.inference_mode():
 示例来自 OpenSLR 31 的 Mini LibriSpeech，注册语音和目标语音为说话人 1272 的不同句子，干扰人为 1462。保留了目标和干扰参考，可试听或算 SI-SDR。来源文件名与混合规则在 `examples/source.json`，有原数据归档时可运行 `prepare_audio.py` 重新生成。[数据来源](https://www.openslr.org/31/)
 
 RTF 为不做音频节拍等待时的处理墙钟时间除以输入音频时长。流式 RTF 含缓存初始化、所有 push 和 flush，排除已预计算的注册向量及 WAV 读写。整段基线另列含注册的 RTF。首包墙钟时间单独用实时节拍投喂音频，实际计时至返回首个输出，排除模型加载与注册。P50/P95 为正常输出阶段的完整回调耗时。结果仅代表该机器和线程设置。详见 `results/metrics.json` 与 `results/实测.md`。
+
+## 8 ms CPU 后端
+
+保留 PyTorch 作为官方结构的对照。OpenVINO 直接从载入的 FP32 权重构建单帧图。ONNX Runtime 对分离器的矩阵乘和频带 LSTM 做动态 INT8 量化，注册、状态接口、STFT 和 OLA 均保留 FP32。两个后端都复用同一套波形缓存和 flush。
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-cpu.txt
+.\.venv\Scripts\python.exe profile_cpu.py
+.\.venv\Scripts\python.exe extract.py examples/mixture.wav examples/enroll.wav results/ov.wav --backend openvino --threads 8 --chunk 128
+.\.venv\Scripts\python.exe export_cpu.py
+.\.venv\Scripts\python.exe extract.py examples/mixture.wav examples/enroll.wav results/int8.wav --backend ort-int8 --threads 2 --chunk 128
+.\.venv\Scripts\python.exe benchmark_cpu.py --backend openvino --threads 8
+.\.venv\Scripts\python.exe benchmark_cpu.py --backend ort-int8 --threads 2
+```
+
+INT8 默认每帧更新。可给最后一条命令增加 `--mask-period 4` 或 `--mask-period 8`，测量降低掩码更新频率的损失。该近似策略会跳过相应的循环状态更新，主要用于说明吞吐与质量的取舍。实测和其它可复现模型见[CPU 对比](results/CPU对比.md)与[替代模型](research/低延迟候选.md)。

@@ -1,0 +1,19 @@
+{
+  "package": "open-voicefilter-lite==0.2.0",
+  "sample_rate": 16000,
+  "input_samples": 64053,
+  "fft": 1200,
+  "window": 640,
+  "hop": 160,
+  "alignment_delay_samples": 1040,
+  "alignment_delay_ms": 65.0,
+  "rtf_trials": [
+    0.381920022481314,
+    0.4292996362397926,
+    0.37833833856740456
+  ],
+  "rtf_median": 0.381920022481314,
+  "target_si_sdr_db": 0.09588760848439729,
+  "mixture_si_sdr_db": 0.13943294572778722,
+  "si_sdri_db": -0.04354533724338994
+}
