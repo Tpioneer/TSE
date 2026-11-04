@@ -1,0 +1,8 @@
+/.venv/
+/assets/
+/vendor/
+__pycache__/
+*.pyc
+/results/*.tmp
+/examples/*.wav
+/results/*.wav

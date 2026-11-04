@@ -1,0 +1,116 @@
+clip_grad: 5.0
+config: confs/tse_bsrnn_spk_causal.yaml
+data_type: raw
+dataloader_args:
+  batch_size: 15
+  drop_last: true
+  num_workers: 6
+  pin_memory: true
+  prefetch_factor: 6
+dataset_args:
+  chunk_len: 48000
+  cue_processing:
+    audio:
+      noise_enroll_prob: 0
+      reverb_enroll_prob: 0
+  cues:
+    audio:
+      required: true
+      use: true
+  noise_lmdb_file: ./data/musan/lmdb
+  noise_prob: 0
+  resample_rate: 16000
+  sample_num_per_epoch: 0
+  shuffle: true
+  shuffle_args:
+    shuffle_size: 2500
+enable_amp: false
+exp_dir: exp/tse_bsrnn_spk/spk_emb_causal/
+gpus:
+- 0
+- 1
+log_batch_interval: 100
+loss: SISDR
+loss_args: {}
+model:
+  tse_model: TSE_BSRNN_SPK
+model_args:
+  tse_model:
+    separator:
+      causal: true
+      feature_dim: 128
+      nspk: 1
+      num_repeat: 6
+      sr: 16000
+      stride: 128
+      win: 512
+    speaker:
+      features:
+        context:
+          atten_dim: 128
+          embed_dim: 512
+          enabled: false
+          fusion": multiply
+          num_heads: 2
+          speaker_model: null
+        listen:
+          enabled: false
+          glue: 512
+        spkemb:
+          enabled: true
+          fusion: multiply
+          speaker_model: null
+        tfmap:
+          enabled: false
+          type: spec
+        usef:
+          approx_qk_dim: 512
+          enabled: false
+          n_head: 4
+          spec_dim: 2
+          t_ksize: 3
+      speaker_model:
+        fbank:
+          dither: 1.0
+          frame_length: 25
+          frame_shift: 10
+          num_mel_bins: 80
+          sample_rate: 16000
+        speaker_encoder:
+          model: ECAPA_TDNN_GLOB_c512
+          pretrained: ./wespeaker_models/voxceleb_ECAPA512/avg_model.pt
+          spk_args:
+            embed_dim: 192
+            feat_dim: 80
+            pooling_func: ASTP
+model_init:
+  discriminator: null
+  spk_model: null
+  tse_model: null
+num_avg: 10
+num_epochs: 150
+optimizer:
+  tse_model: Adam
+optimizer_args:
+  tse_model:
+    lr: 0.001
+    weight_decay: 0.0001
+save_epoch_interval: 10
+scheduler:
+  tse_model: ExponentialDecrease
+scheduler_args:
+  scale_ratio: 1.0
+  tse_model:
+    epoch_iter: 463
+    final_lr: 2.5e-05
+    initial_lr: 0.001
+    num_epochs: 150
+    warm_from_zero: false
+    warm_up_epoch: 0
+seed: 42
+train_cues: data/clean/train-100/cues.yaml
+train_data: data/clean/train-100/raw.list
+train_samples: data/clean/train-100/samples.jsonl
+val_cues: data/clean/dev/cues.yaml
+val_data: data/clean/dev/raw.list
+val_samples: data/clean/dev/samples.jsonl
